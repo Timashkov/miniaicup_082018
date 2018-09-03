@@ -8,13 +8,15 @@ class Car(jsonObject: JSONObject) {
     private var mTorque: Int = jsonObject.getInt("torque")
     private var mExternalId: Int = jsonObject.getInt("external_id")
     private var mCarBodyElasticity : Float = jsonObject.getFloat("car_body_elasticity")
-    private var mCarBodyPoly: Array<Vertex> = emptyArray()
+    private var mCarBodyPoly: Array<Vertex>
     private var mCarBodyFriction: Float = jsonObject.getFloat("car_body_friction")
     private var mAngularSpeed : Float = jsonObject.getFloat("max_angular_speed")
-    private var mButtonPoly : Array<Vertex> = emptyArray()
+    private var mButtonPoly : Array<Vertex>
     private var mMaxSped: Float = jsonObject.getFloat("max_speed")
     private var mCarBodyMass : Float = jsonObject.getFloat("car_body_mass")
     private val mDrive: Int = jsonObject.getInt("drive")
+    private val mFrontWheel : Wheel = Wheel(Wheel.WheelType.FRONT, jsonObject)
+    private val mRearWheel : Wheel = Wheel(Wheel.WheelType.REAR, jsonObject)
 
     init {
         val carArray = jsonObject.getJSONArray("car_body_poly")
@@ -26,7 +28,8 @@ class Car(jsonObject: JSONObject) {
     override fun toString(): String {
         return "mTorque: $mTorque\nmExternalId: $mExternalId\nmElasticity: $mCarBodyElasticity\nmCarBodyFriction: $mCarBodyFriction" +
                 "\nmAngularSpeed: $mAngularSpeed\nmMaxSped: $mMaxSped\nmCarBodyMass: $mCarBodyMass\nmDrive: $mDrive\n" +
-                "mButtonPoly: ${Arrays.toString(mButtonPoly)}\n mCarBodyPoly: ${Arrays.toString(mCarBodyPoly)}"
+                "mButtonPoly: ${Arrays.toString(mButtonPoly)}\nmCarBodyPoly: ${Arrays.toString(mCarBodyPoly)}\n" +
+                "mFrontWheel: $mFrontWheel\nmRearWheel: $mRearWheel"
     }
 }
 //http://www.pymunk.org/en/latest/pymunk.html#pymunk.Space.damping

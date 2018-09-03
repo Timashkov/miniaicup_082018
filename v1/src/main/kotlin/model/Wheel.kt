@@ -1,19 +1,44 @@
 package model
 
 import base.Vertex
+import org.json.JSONObject
 
-class Wheel {
-    private var mRadius: Float = 0f
-    private var mMass: Float = 0f
-    private var mPosition: Vertex = Vertex(0f, 0f)
-    private var mElasticy: Float = 0f
-    private var mFriction: Float = 0f
-    private var mJoint: Vertex = Vertex(0f, 0f)
-    private var mDampDamping: Float = 0f
-    private var mDampPosition: Float = 0f
-    private var mDampStiffness: Float = 0f
-    private var mDampLength = 0f
+class Wheel(private val wheelType: WheelType, val jsonObject: JSONObject) {
+    private var mRadius: Float = jsonObject.getFloat("${wheelType.prefix}radius")
+    private var mMass: Float = jsonObject.getFloat("${wheelType.prefix}mass")
+    private var mPosition: Vertex
+    private var mElasticity: Float = jsonObject.getFloat("${wheelType.prefix}elasticity")
+    private var mFriction: Float = jsonObject.getFloat("${wheelType.prefix}friction")
+    private var mJoint: Vertex
+    private var mDampDamping: Float = jsonObject.getFloat("${wheelType.prefix}damp_damping")
+    private var mDampPosition: Vertex
+    private var mDampStiffness: Float = jsonObject.getFloat("${wheelType.prefix}damp_stiffness")
+    private var mDampLength = jsonObject.getFloat("${wheelType.prefix}damp_length")
+
+    init {
+        var vertArr = jsonObject.getJSONArray("${wheelType.prefix}position")
+        mPosition = Vertex(vertArr.getFloat(0), vertArr.getFloat(1))
+        vertArr = jsonObject.getJSONArray("${wheelType.prefix}joint")
+        mJoint = Vertex(vertArr.getFloat(0), vertArr.getFloat(1))
+        vertArr = jsonObject.getJSONArray("${wheelType.prefix}damp_position")
+        mDampPosition = Vertex(vertArr.getFloat(0), vertArr.getFloat(1))
+    }
+
+    override fun toString(): String {
+        return "Wheel: ${wheelType.id}:\nmMass: $mMass\n" +
+                "mRadius: $mRadius\nmPosition: $mPosition\n" +
+                "mElasticity: $mElasticity\nmFrictioon: $mFriction\n" +
+                "mJoint: $mJoint\nmDampDamping: $mDampDamping\n" +
+                "mDampPostition: $mDampPosition\nmDampStiffness: $mDampStiffness\n" +
+                "mDampLength: $mDampLength"
+    }
+
+    enum class WheelType(val id: Int, val prefix: String) {
+        FRONT(0, "front_wheel_"),
+        REAR(1, "rear_wheel_")
+    }
 }
+
 
 /*
     "front_wheel_friction":1,
