@@ -13,7 +13,7 @@
 
 #ifndef GAME_H
 #define GAME_H
-#include "../chipmunk/chipmunk_structs.h"
+#include "../chipmunk/include/chipmunk/chipmunk_structs.h"
 #include <vector>
 
 class LogStruct{};
