@@ -71,21 +71,21 @@ std::vector<SegmentPoint> Maps::getSegmentsFromArc(cpVect c, float r, float a, f
     for (int j = 0; j < sc; j++) {
         float fpoint_rad = a + rad_pre_seg * j;
         float spoint_rad = a + rad_pre_seg * (j + 1);
-        cpVec fpoint = cpv(c) + cpv(r * cos(fpoint_rad), r * sin(fpoint_rad));
-        cpVec spoint = cpv(c) + cpv(r * cos(spoint_rad), r * sin(spoint_rad));
+        cpVect fpoint = cpv(c) + cpv(r * cos(fpoint_rad), r * sin(fpoint_rad));
+        cpVect spoint = cpv(c) + cpv(r * cos(spoint_rad), r * sin(spoint_rad));
         points.push_back(SegmentPoint(fpoint, spoint, segment_height));
     }
     return points;
 }
 
 void Maps::create_box(cpSpace* space) {
-    left = cpSegmentShapeNew(space->staticBody, cpv(0f, 0f), cpv(0f, max_height), 1);
+    left = cpSegmentShapeNew(space->staticBody, cpv(0.0, 0.0), cpv(0.0, max_height), 1);
     left->sensor = true;
 
     top = cpSegmentShapeNew(space->staticBody, cpv(0, max_height), cpv(max_width, max_height), 1);
     top->sensor = true
 
-            right = cpSegmentShapeNew(space->staticBody, cpv(max_width, max_height), cpv(max_width, 0), 1);
+    right = cpSegmentShapeNew(space->staticBody, cpv(max_width, max_height), cpv(max_width, 0), 1);
     right->sensor = true;
 
     bottom = cpSegmentShapeNew(space->staticBody, cpv(max_width, 0), cpv(0, 0), 1);
@@ -94,50 +94,50 @@ void Maps::create_box(cpSpace* space) {
     //self.objects.extend([left, top, right, bottom])
 }
 
-cpShape ** Maps::getBaseSegments(cpSpace *space) {
+std::vector<cpShape *> Maps::getBaseSegments(cpSpace *space) {
 }
 
-cpShape ** Maps::getAdditionalSegments(cpSpace *space) {
+std::vector<cpShape *> Maps::getAdditionalSegments(cpSpace *space) {
 }
 
-cpShape ** Maps::getBaseArcs(cpSpace * space) {
+std::vector<cpShape *> Maps::getBaseArcs(cpSpace * space) {
 }
 
-cpShape ** Maps::getAdditionalArcs(cpSpace *space) {
+std::vector<cpShape *> Maps::getAdditionalArcs(cpSpace *space) {
 }
 
-cpArray* Maps::get_segments_points() {
-
-    cpArray *points = cpArrayNew(base_segments.num + additional_segments.num + base_arcs.num + additional_arcs.num);
-    int i = 0;
-    for (; i < base_segments.num; i++) {
-        points[i] = base_segments[i];
-    }
-    int max = i;
-    for (i = 0; i < additional_segments.num; i++) {
-        points[i + max] = additional_segments[i];
-    }
-    max = max + i;
-    for (i = 0; i < base_arcs->num; i++) {
-        float rad_pre_seg = (b - a) / sc;
-        for (int j = 0; j < sc; j++) {
-            float fpoint_rad = a + rad_pre_seg * j;
-            float spoint_rad = a + rad_pre_seg * (j + 1);
-            cpVec fpoint = cpv(c) + cpv(r * cos(fpoint_rad), r * sin(fpoint_rad));
-            cpVec spoint = cpv(c) + cpv(r * cos(spoint_rad), r * sin(spoint_rad));
-            points[i + j + max] = SegmentPoint(fpoint, spoint, segment_height);
-        }
-    }
-    max = max + i;
-    for (i = 0; i < additional_arcs->num; i++) {
-        float rad_pre_seg = (b - a) / sc;
-        for (int j = 0; j < sc; j++) {
-            float fpoint_rad = a + rad_pre_seg * j;
-            float spoint_rad = a + rad_pre_seg * (j + 1);
-            cpVec fpoint = cpv(c) + cpv(r * cos(fpoint_rad), r * sin(fpoint_rad));
-            cpVec spoint = cpv(c) + cpv(r * cos(spoint_rad), r * sin(spoint_rad));
-            points[i + j + max] = SegmentPoint(fpoint, spoint, segment_height);
-        }
-    }
-    return points
-}
+//cpArray* Maps::get_segments_points() {
+//
+//    cpArray *points = cpArrayNew(base_segments.num + additional_segments.num + base_arcs.num + additional_arcs.num);
+//    int i = 0;
+//    for (; i < base_segments.num; i++) {
+//        points[i] = base_segments[i];
+//    }
+//    int max = i;
+//    for (i = 0; i < additional_segments.num; i++) {
+//        points[i + max] = additional_segments[i];
+//    }
+//    max = max + i;
+//    for (i = 0; i < base_arcs->num; i++) {
+//        float rad_pre_seg = (b - a) / sc;
+//        for (int j = 0; j < sc; j++) {
+//            float fpoint_rad = a + rad_pre_seg * j;
+//            float spoint_rad = a + rad_pre_seg * (j + 1);
+//            cpVec fpoint = cpv(c) + cpv(r * cos(fpoint_rad), r * sin(fpoint_rad));
+//            cpVec spoint = cpv(c) + cpv(r * cos(spoint_rad), r * sin(spoint_rad));
+//            points[i + j + max] = SegmentPoint(fpoint, spoint, segment_height);
+//        }
+//    }
+//    max = max + i;
+//    for (i = 0; i < additional_arcs->num; i++) {
+//        float rad_pre_seg = (b - a) / sc;
+//        for (int j = 0; j < sc; j++) {
+//            float fpoint_rad = a + rad_pre_seg * j;
+//            float spoint_rad = a + rad_pre_seg * (j + 1);
+//            cpVec fpoint = cpv(c) + cpv(r * cos(fpoint_rad), r * sin(fpoint_rad));
+//            cpVec spoint = cpv(c) + cpv(r * cos(spoint_rad), r * sin(spoint_rad));
+//            points[i + j + max] = SegmentPoint(fpoint, spoint, segment_height);
+//        }
+//    }
+//    return points
+//}

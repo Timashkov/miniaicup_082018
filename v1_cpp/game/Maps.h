@@ -80,7 +80,7 @@ protected:
     cpArray * cars_start_position;
     cpArray * objects;
 
-    virtual cpArray * get_segments_points();
+//    virtual cpArray * get_segments_points();
     int external_id;
     float segment_height;
 
@@ -97,7 +97,7 @@ private:
     float max_width;
     float max_height;
 
-    cpShape* left, right, bottom, top;
+    cpShape *left, *right, *bottom, *top;
 
     void create_box(cpSpace* space);
 };
