@@ -15,6 +15,7 @@
 #define GAME_H
 #include "../chipmunk/include/chipmunk/chipmunk_structs.h"
 #include <vector>
+#include "Maps.h"
 
 class LogStruct{};
 
@@ -29,7 +30,7 @@ private:
     
     
     void clear_space();
-    cpSpace* space;
+    cpSpace * space;
     bool game_complete;
     bool extended_save;
     int max_match_count;

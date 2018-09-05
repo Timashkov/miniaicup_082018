@@ -46,6 +46,9 @@ void Game::start(){
 }
 
 void Game::clear_space(){
+    delete(space->staticShapes);
+    delete(space->staticBodies);
+    delete(space->constraints);
 //    space.remove(space.shapes)
 //    space.remove(space.bodies)
 //    space.remove(space.constraints)
@@ -54,7 +57,9 @@ void Game::clear_space(){
 void Game::next_match(){
     //    def next_match(self):
 //        map, car = next(self.matches)
-//        self.clear_space()
+        clear_space();
+        Maps *map = new PillHillMap(space);
+        map->getMapShapes(space);
 //        match = Match(map, car, self.all_players, self.space)
 //        self.space.add(match.get_objects_for_space())
 //        self.current_match = match
