@@ -1,8 +1,12 @@
+import chipmunk_bind.chipmunk_binding
 import model.World
 import org.json.JSONObject
 
 fun main(args: Array<String>) {
     var mProcessor:Processor? = null
+
+    val bind = chipmunk_binding()
+    bind.cpSegmentShapeAlloc()
 
     while (true) {
         val lineData = JSONObject(readLine())

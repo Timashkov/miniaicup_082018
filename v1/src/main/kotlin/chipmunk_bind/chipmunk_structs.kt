@@ -1,4 +1,4 @@
-package chipmunk
+package chipmunk_bind
 //
 //class cpTransform {
 //    var a: Float = 0f
