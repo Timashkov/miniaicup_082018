@@ -44,7 +44,6 @@ public:
 class Maps {
 public:
     Maps(cpSpace *space);
-    Maps(const Maps& orig);
 
     virtual ~Maps() {
     };

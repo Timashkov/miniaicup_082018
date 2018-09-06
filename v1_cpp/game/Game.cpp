@@ -20,7 +20,7 @@ Game::Game() {
 
     //        self.all_players = [Player(index + 1, client, self.max_match_count) for index, client in enumerate(clients)]
 
-    space = new cpSpace();
+    space = cpSpaceNew();
     space->gravity = cpv(0.0, -700.0);
     space->damping = 0.85;
     scores[0] = 0;

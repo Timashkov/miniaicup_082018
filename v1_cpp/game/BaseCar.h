@@ -74,11 +74,12 @@ public:
     int mXmodification;
     
     
-    cpBody create_car_body() {
-            return cpBodyNew(car_body_mass, pymunk.moment_for_poly(car_body_mass, processed_car_body_poly()));
-    }
+//    cpBody create_car_body() {
+//            return cpBodyNew(car_body_mass, pymunk.moment_for_poly(car_body_mass, processed_car_body_poly()));
+//    }
 private:
 
+    std::vector<cpVect> processed_car_body_poly();
 };
 
 #endif /* BASECAR_H */
