@@ -17,6 +17,7 @@ buildscript {
 }
 
 apply plugin: 'kotlin'
+apply plugin: 'cpp'
 apply plugin: 'com.github.johnrengelman.shadow'
 
 repositories {
@@ -47,3 +48,49 @@ compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
 
+model {
+//    repositories {
+//        libs(PrebuiltLibraries) {
+//            googleTest {
+//                headers.srcDir new File(projectDir, "3rdparty/googletest-master/googletest/include")
+//                binaries.withType(StaticLibraryBinary) {
+//                    staticLibraryFile = file(projectDir.getPath() + "/3rdparty/googletest-master/googletest/build/" + findGoogleTestStaticLib(targetPlatform))
+//                }
+//            }
+//        }
+//    }
+    components {
+        chipmunk(NativeLibrarySpec) { }
+        // Let's try using the library
+        main(NativeExecutableSpec) {
+            sources {
+                cpp.lib library: "chipmunk"
+            }
+        }
+    }
+
+
+//    binaries {
+//        withType(SharedLibraryBinarySpec) {
+//            if (toolChain in VisualCpp) {
+//                cppCompiler.define "DLL_EXPORT"
+//            }
+//        }
+//        withType(GoogleTestTestSuiteBinarySpec) {
+//            lib library: "googleTest", linkage: "static"
+//
+//            if (targetPlatform.operatingSystem.linux) {
+//                cppCompiler.args '-pthread'
+//                linker.args '-pthread'
+//            }
+//        }
+//    }
+}
+
+def findGoogleTestStaticLib(Platform p) {
+    if (p.operatingSystem.windows) {
+        return "Release/gtest.lib"
+    } else {
+        return "libgtest.a"
+    }
+}
