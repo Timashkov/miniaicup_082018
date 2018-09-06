@@ -22,7 +22,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
-#include "chipmunk/chipmunk_private.h"
+#include "../include/chipmunk/chipmunk_private.h"
 
 void
 cpMessage(const char *condition, const char *file, int line, int isError, int isHardError, const char *message, ...) {
@@ -307,4 +307,4 @@ cpBool cpSpaceShapeQuery_b(cpSpace *space, cpShape *shape, cpSpaceShapeQueryBloc
 #endif
 #endif
 
-#include "chipmunk/chipmunk_ffi.h"
+#include "../include/chipmunk/chipmunk_ffi.h"

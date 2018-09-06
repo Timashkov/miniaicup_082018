@@ -5,8 +5,8 @@
 #include <stdio.h>
 #include <math.h>
 
-#include "chipmunk/chipmunk.h"
-#include "chipmunk/cpMarch.h"
+#include "../include/chipmunk/chipmunk.h"
+#include "../include/chipmunk/cpMarch.h"
 
 
 typedef void (*cpMarchCellFunc)(

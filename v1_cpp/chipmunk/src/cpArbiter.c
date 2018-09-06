@@ -19,7 +19,7 @@
  * SOFTWARE.
  */
 
-#include "chipmunk/chipmunk_private.h"
+#include "../include/chipmunk/chipmunk_private.h"
 
 // TODO: make this generic so I can reuse it for constraints also.
 static inline void

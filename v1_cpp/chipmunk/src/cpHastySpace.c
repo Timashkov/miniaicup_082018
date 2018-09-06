@@ -7,8 +7,8 @@
 #include <pthread.h>
 #include <sys/sysctl.h>
 
-#include "chipmunk/chipmunk_private.h"
-#include "chipmunk/cpHastySpace.h"
+#include "../include/chipmunk/chipmunk_private.h"
+#include "../include/chipmunk/cpHastySpace.h"
 
 
 //MARK: PThreads
@@ -158,7 +158,7 @@ cpHastySpaceSetThreads(cpSpace *space, unsigned long threads) {
             hasty->workers[i].space = hasty;
             hasty->workers[i].thread_num = i + 1;
 
-            pthread_create(&hasty->workers[i].thread, NULL, (void *) WorkerThreadLoop, &hasty->workers[i]);
+            pthread_create(&hasty->workers[i].thread, NULL, (void * (*)(void*)) WorkerThreadLoop, &hasty->workers[i]);
         }
 
         pthread_cond_wait(&hasty->cond_resume, &hasty->mutex);
