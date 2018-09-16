@@ -4,27 +4,41 @@ import base.Vertex
 import org.json.JSONObject
 import java.util.*
 
-class Car(jsonObject: JSONObject) {
-    private var mTorque: Int = jsonObject.getInt("torque")
-    private var mExternalId: Int = jsonObject.getInt("external_id")
-    private var mCarBodyElasticity: Float = jsonObject.getFloat("car_body_elasticity")
-    private var mCarBodyPoly: Array<Vertex>
-    private var mCarBodyFriction: Float = jsonObject.getFloat("car_body_friction")
-    private var mAngularSpeed: Float = jsonObject.getFloat("max_angular_speed")
-    private var mButtonPoly: Array<Vertex>
-    private var mMaxSped: Float = jsonObject.getFloat("max_speed")
-    private var mCarBodyMass: Float = jsonObject.getFloat("car_body_mass")
-    private val mDrive: Int = jsonObject.getInt("drive")
-    private val mFrontWheel: Wheel = Wheel(Wheel.WheelType.FRONT, jsonObject)
-    private val mRearWheel: Wheel = Wheel(Wheel.WheelType.REAR, jsonObject)
-    private val mSquareWheels: Boolean = if (jsonObject.has("squared_wheels")) jsonObject.getBoolean("squared_wheels") else false
+class Car() {
+    private var mTorque: Int = 0
+    private var mExternalId: Int = 0
+    private var mCarBodyElasticity: Double = 0.0
+    private var mCarBodyPoly: Array<Vertex> = emptyArray()
+    private var mCarBodyFriction: Double = 0.0
+    private var mAngularSpeed: Double = 0.0
+    private var mButtonPoly: Array<Vertex> = emptyArray()
+    private var mMaxSped: Double = 0.0
+    private var mCarBodyMass: Double = 0.0
+    private var mDrive: Int = 0
+    private var mFrontWheel: Wheel?= null
+    private var mRearWheel: Wheel? = null
+    private var mSquareWheels: Boolean = false
 
-    init {
+    constructor(jsonObject: JSONObject): this(){
+        mTorque = jsonObject.getInt("torque")
+        mExternalId = jsonObject.getInt("external_id")  // 1 - buggy, 2 - bus, 3 - square buggy
+        mCarBodyElasticity = jsonObject.getDouble("car_body_elasticity")
+        mCarBodyFriction = jsonObject.getDouble("car_body_friction")
+        mAngularSpeed = jsonObject.getDouble("max_angular_speed")
+        mMaxSped = jsonObject.getDouble("max_speed")
+        mCarBodyMass = jsonObject.getDouble("car_body_mass")
+        mDrive = jsonObject.getInt("drive")
+        mFrontWheel = Wheel(Wheel.WheelType.FRONT, jsonObject)
+        mRearWheel = Wheel(Wheel.WheelType.REAR, jsonObject)
+        mSquareWheels = if (jsonObject.has("squared_wheels")) jsonObject.getBoolean("squared_wheels") else false
+
         val carArray = jsonObject.getJSONArray("car_body_poly")
         mCarBodyPoly = Array(carArray.length()) { i -> Vertex(carArray.getJSONArray(i).getDouble(0), carArray.getJSONArray(i).getDouble(1)) }
         val buttonArray = jsonObject.getJSONArray("button_poly")
         mButtonPoly = Array(buttonArray.length()) { i -> Vertex(buttonArray.getJSONArray(i).getDouble(0), buttonArray.getJSONArray(i).getDouble(1)) }
+
     }
+
 
     override fun toString(): String {
         return "mTorque: $mTorque\nmExternalId: $mExternalId\nmElasticity: $mCarBodyElasticity\nmCarBodyFriction: $mCarBodyFriction" +
