@@ -17,7 +17,7 @@ class Processor(world: World) {
         mLogger.writeLog("INCOMING $tickData")
 //        val parsed = parseIncoming(tickData)
 //        val out = analyzeData(parsed, mCurrentTick)
-        val out = JSONObject(mapOf("command" to "stop", "Debug" to "left"))
+        val out = JSONObject(mapOf("command" to "left", "Debug" to "left"))
         // commands = ['left', 'right', 'stop']  # доступные команды
         // rint(json.dumps({"command": cmd, 'debug': cmd})  # отправка результата
         mCurrentTick++

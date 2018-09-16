@@ -21,9 +21,9 @@ class Car(jsonObject: JSONObject) {
 
     init {
         val carArray = jsonObject.getJSONArray("car_body_poly")
-        mCarBodyPoly = Array(carArray.length()) { i -> Vertex(carArray.getJSONArray(i).getFloat(0), carArray.getJSONArray(i).getFloat(1)) }
+        mCarBodyPoly = Array(carArray.length()) { i -> Vertex(carArray.getJSONArray(i).getDouble(0), carArray.getJSONArray(i).getDouble(1)) }
         val buttonArray = jsonObject.getJSONArray("button_poly")
-        mButtonPoly = Array(buttonArray.length()) { i -> Vertex(buttonArray.getJSONArray(i).getFloat(0), buttonArray.getJSONArray(i).getFloat(1)) }
+        mButtonPoly = Array(buttonArray.length()) { i -> Vertex(buttonArray.getJSONArray(i).getDouble(0), buttonArray.getJSONArray(i).getDouble(1)) }
     }
 
     override fun toString(): String {
@@ -32,6 +32,9 @@ class Car(jsonObject: JSONObject) {
                 "mButtonPoly: ${Arrays.toString(mButtonPoly)}\nmCarBodyPoly: ${Arrays.toString(mCarBodyPoly)}\n" +
                 "mFrontWheel: $mFrontWheel\nmRearWheel: $mRearWheel\nSquaredWheels: $mSquareWheels"
     }
+
+
+
 }
 //http://www.pymunk.org/en/latest/pymunk.html#pymunk.Space.damping
 /*

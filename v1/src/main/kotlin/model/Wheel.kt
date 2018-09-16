@@ -17,11 +17,11 @@ class Wheel(private val wheelType: WheelType, val jsonObject: JSONObject) {
 
     init {
         var vertArr = jsonObject.getJSONArray("${wheelType.prefix}position")
-        mPosition = Vertex(vertArr.getFloat(0), vertArr.getFloat(1))
+        mPosition = Vertex(vertArr.getDouble(0), vertArr.getDouble(1))
         vertArr = jsonObject.getJSONArray("${wheelType.prefix}joint")
-        mJoint = Vertex(vertArr.getFloat(0), vertArr.getFloat(1))
+        mJoint = Vertex(vertArr.getDouble(0), vertArr.getDouble(1))
         vertArr = jsonObject.getJSONArray("${wheelType.prefix}damp_position")
-        mDampPosition = Vertex(vertArr.getFloat(0), vertArr.getFloat(1))
+        mDampPosition = Vertex(vertArr.getDouble(0), vertArr.getDouble(1))
     }
 
     override fun toString(): String {
