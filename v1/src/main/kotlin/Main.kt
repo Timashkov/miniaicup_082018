@@ -1,12 +1,20 @@
-import chipmunk_bind.chipmunk_binding
+//import chipmunk_bind.chipmunk_binding
+import gameobjects.Game
 import model.World
 import org.json.JSONObject
 
 fun main(args: Array<String>) {
     var mProcessor:Processor? = null
 
-    val bind = chipmunk_binding()
-    bind.cpSegmentShapeAlloc()
+
+    val g = Game()
+    g.begin()
+    g.next_match()
+    for (i in 0..5){
+
+        g.tick()
+    }
+
 
     while (true) {
         val lineData = JSONObject(readLine())

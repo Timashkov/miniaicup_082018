@@ -184,7 +184,7 @@ abstract class BaseCar(val external_id: Int = 0) {
         if (car_body == null) throw Exception("Create car body before")
 
         val button_shape = cpPolyShape()
-        button_shape.init(car_body!!, get_button_poly().map{ it-> cpVect(x_modification*it.x, it.y)}.toTypedArray())
+        button_shape.init(car_body!!, get_button_poly().map { it -> cpVect(x_modification * it.x, it.y) }.toTypedArray())
 
 //        button_shape.color = 23, 230, 230
         car_group?.let {
@@ -222,7 +222,7 @@ abstract class BaseCar(val external_id: Int = 0) {
 
     fun in_air(): Boolean {
         point_query_nearest?.let { listener ->
-//            return !(listener.point_query_nearest(rear_wheel_body.position, rear_wheel_radius + 1, cpShapeFilter(car_group!!))
+            //            return !(listener.point_query_nearest(rear_wheel_body.position, rear_wheel_radius + 1, cpShapeFilter(car_group!!))
 //                    || listener.point_query_nearest(front_wheel_body.position, front_wheel_radius + 1, cpShapeFilter(car_group!!)))
             if (listener.point_query_nearest(rear_wheel_body!!.cpBodyGetPosition(), rear_wheel_radius + 1, cpShapeFilter(car_group!!)) == null)
                 return true
@@ -256,9 +256,9 @@ abstract class BaseCar(val external_id: Int = 0) {
 //    }
 
     fun get_objects_for_space_at(point: cpVect): List<cpObject> {
-        car_body?.cpBodySetPosition(point)
-        front_wheel_body?.cpBodySetPosition(cpVect.cpvadd(point, cpVect(front_wheel_position.x * x_modification, front_wheel_position.y)))
-        rear_wheel_body?.cpBodySetPosition(cpVect.cpvadd(point, cpVect(rear_wheel_position.x * x_modification, rear_wheel_position.y)))
+        car_body?.p = point
+        front_wheel_body?.p = cpVect.cpvadd(point, cpVect(front_wheel_position.x * x_modification, front_wheel_position.y))
+        rear_wheel_body?.p = cpVect.cpvadd(point, cpVect(rear_wheel_position.x * x_modification, rear_wheel_position.y))
         val ret = ArrayList<cpObject>()
         ret.add(button_shape!!)
         ret.add(car_body!!)

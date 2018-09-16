@@ -5,7 +5,7 @@ import chipmunk_bind.cpObject
 import chipmunk_bind.cpSpace
 import chipmunk_bind.cpVect
 
-class Match(val map: Map, val car: BaseCar, /*players: Player,*/space: cpSpace) {
+class Match(val map: Map, /*val car: BaseCar, players: Player,*/space: cpSpace) {
     companion object {
         const val TICKS_TO_DEADLINE = 600
     }
@@ -67,6 +67,29 @@ class Match(val map: Map, val car: BaseCar, /*players: Player,*/space: cpSpace) 
         objs.addAll(map_objects)
         objs.addAll(cars_objects)
         return objs
+    }
+
+    fun tick( game_tick: Int) {
+        if (!is_rest /*&& !smbd_die()*/){
+            rest_counter =1000000// REST_TICKS
+            is_rest = true
+        }
+        if (rest_counter > 0)
+            rest_counter -= 1
+
+//        send_tick(game_tick)
+//        futures = []
+        // do turn left/right/stop
+//        for p in self.players:
+//        futures.append(asyncio.ensure_future(self.apply_turn_wrapper(p, game_tick)))
+//        if futures:
+        //wait for perform
+//        yield from asyncio.wait(futures)
+//
+//        if self.ticks_to_deadline < 1:
+//        self.deadline.move()
+//        else:
+//        self.ticks_to_deadline -= 1
     }
 }
 
