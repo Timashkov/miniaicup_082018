@@ -2,32 +2,38 @@ import model.World
 import org.json.JSONObject
 import utils.Logger
 
-class Processor(world: World) {
+class Processor(private val mWorld: World) {
 
     private val mLogger = Logger()
     private var mCurrentTick = 0
 
     init {
-        mLogger.writeLog(world.toString())
+        mLogger.writeLog(mWorld.toString())
     }
 
     // Tick Process
     fun onTick(tickData: JSONObject): JSONObject {
         mLogger.writeLog("\nT$mCurrentTick")
         mLogger.writeLog("INCOMING $tickData")
-//        val parsed = parseIncoming(tickData)
-//        val out = analyzeData(parsed, mCurrentTick)
-        val out = JSONObject(mapOf("command" to "left", "Debug" to "left"))
+        parseIncoming(tickData)
+        val out = analyzeData()
         // commands = ['left', 'right', 'stop']  # доступные команды
         // rint(json.dumps({"command": cmd, 'debug': cmd})  # отправка результата
         mCurrentTick++
         return out
     }
 
-//    fun parseIncoming(tickData: JSONObject): ParseResult =
-//            ParseResult(MineInfo(tickData.getJSONArray("Mine"), mWorldConfig, mLogger), WorldObjectsInfo(tickData.getJSONArray("Objects"), mWorldConfig, mLogger), ArrayList())
-//
-//    fun analyzeData(parseResult: ParseResult, currentTickCount: Int): JSONObject {
+    fun parseIncoming(tickData: JSONObject){
+        val enemyInfo = tickData.getJSONArray("enemy_car")
+        val dp = tickData.getDouble("deadline_position")
+        val myCar = tickData.getJSONArray("my_car")
+
+        mWorld.updateCarInfo(myCar)
+        mWorld.updateDeadlinePosition(dp)
+        mWorld.updateEnemyInfo(enemyInfo)
+    }
+
+    fun analyzeData(): JSONObject {
 //        if (parseResult.mineInfo.isNotEmpty()) {
 //            val data = mEvasionFilter.onFilter(parseResult, currentTickCount)
 //            try {
@@ -67,7 +73,9 @@ class Processor(world: World) {
 //        }
 //        mLogger.writeLog("DEFAULT DIED")
 //        return JSONObject(mapOf("X" to 0, "Y" to 0, "Debug" to "Died"))
-//    }
+        val out = JSONObject(mapOf("command" to "left", "Debug" to "left"))
+        return out
+    }
 //
 //    private fun checkTriggers(gameEngine: GameEngine) {
 //        mAction = ACTIONS.MINE
