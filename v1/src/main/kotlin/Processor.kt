@@ -74,7 +74,9 @@ class Processor(private val mWorld: World) {
 //        }
 //        mLogger.writeLog("DEFAULT DIED")
 //        return JSONObject(mapOf("X" to 0, "Y" to 0, "Debug" to "Died"))
-        val out = JSONObject(mapOf("command" to mWorld.getCar().turnLeft(), "Debug" to "left"))
+        val car = mWorld.getCar()
+
+        val out = JSONObject(mapOf("command" to if(car.isInAir(mWorld.mapSegmentsHolder)) car.stop() else car.turnLeft(), "Debug" to "left"))
         return out
     }
 //

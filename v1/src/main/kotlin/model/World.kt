@@ -7,7 +7,7 @@ class World(private val json: JSONObject) {
 
     private val mCar = Car(json.getJSONObject("proto_car"))
     private val mEnemyCar = Car()
-    private val mMapSegmentsHolder = MapSegmentsHolder(json.getJSONObject("proto_map").getJSONArray("segments"))
+    val mapSegmentsHolder = MapSegmentsHolder(json.getJSONObject("proto_map").getJSONArray("segments"))
     private val mDeadLine = DeadLine()
 
 

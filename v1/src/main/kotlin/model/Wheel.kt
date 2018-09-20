@@ -39,6 +39,9 @@ class Wheel(private val wheelType: WheelType, val jsonObject: JSONObject) {
         mAngle = angle
     }
 
+    fun position(): Vertex = mPosition
+    fun radius() = mRadius
+
     enum class WheelType(val id: Int, val prefix: String) {
         FRONT(0, "front_wheel_"),
         REAR(1, "rear_wheel_")

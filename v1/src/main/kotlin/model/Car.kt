@@ -1,8 +1,10 @@
 package model
 
+import base.Line
 import base.Vertex
 import org.json.JSONArray
 import org.json.JSONObject
+import utils.Logger
 import java.util.*
 
 class Car() {
@@ -79,25 +81,44 @@ class Car() {
         mAngle = angle
     }
 
-    fun getAngle() = mAngle
+    fun angle() = mAngle
+
     fun isInAir(segmentsHolder: MapSegmentsHolder): Boolean {
         mFrontWheel?.let {
             if (!checkWheelInAir(it, segmentsHolder))
                 return false
         }
 
-        mRearWheel?.let{
-            if(!checkWheelInAir(it, segmentsHolder))
+        mRearWheel?.let {
+            if (!checkWheelInAir(it, segmentsHolder))
                 return false
         }
+
+//        mCarBodyPoly.forEach { polyVertex ->
+//            segmentsHolder.mSegments.forEach {
+//                val line = Line(it.dot1, it.dot2)
+//                val distance = line.normalDistance(polyVertex)
+//                if (distance < 10.021){
+//                    Logger().writeLog("body no in air Distance $distance}")
+//                    return false
+//                }
+//            }
+//        }
         return true
     }
 
-    private fun checkWheelInAir(wheel:Wheel, segmentsHolder: MapSegmentsHolder): Boolean{
-//        segmentsHolder.mSegments.forEach{
-//
-//        }
-        return false
+    private fun checkWheelInAir(wheel: Wheel, segmentsHolder: MapSegmentsHolder): Boolean {
+        segmentsHolder.mSegments.forEach {
+            val line = Line(it.dot1, it.dot2)
+            val distance = line.normalDistance(wheel.position())
+
+            if ( distance < (wheel.radius() + 10.021)){
+                Logger().writeLog("wheel not in air Distance $distance radius ${wheel.radius()}")
+                return false
+            }
+
+        }
+        return true
     }
 
     fun setRearWheelInfo(jsonArray: JSONArray) {
@@ -107,6 +128,8 @@ class Car() {
     fun setFrontWheelInfo(jsonArray: JSONArray) {
         mFrontWheel?.updatePosition(jsonArray.getDouble(0), jsonArray.getDouble(1), jsonArray.getDouble(2))
     }
+
+    fun stop() = "stop"
 
 
 }
