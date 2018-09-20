@@ -1,6 +1,7 @@
 package model
 
 import base.Vertex
+import org.json.JSONArray
 import org.json.JSONObject
 import java.util.*
 
@@ -15,11 +16,14 @@ class Car() {
     private var mMaxSped: Double = 0.0
     private var mCarBodyMass: Double = 0.0
     private var mDrive: Int = 0
-    private var mFrontWheel: Wheel?= null
+    private var mFrontWheel: Wheel? = null
     private var mRearWheel: Wheel? = null
     private var mSquareWheels: Boolean = false
+    private var mLeftBottomPosition: Vertex = Vertex(0.0, 0.0)
+    private var mSide = 0
+    private var mAngle: Double = 0.0
 
-    constructor(jsonObject: JSONObject): this(){
+    constructor(jsonObject: JSONObject) : this() {
         mTorque = jsonObject.getInt("torque")
         mExternalId = jsonObject.getInt("external_id")  // 1 - buggy, 2 - bus, 3 - square buggy
         mCarBodyElasticity = jsonObject.getDouble("car_body_elasticity")
@@ -47,6 +51,62 @@ class Car() {
                 "mFrontWheel: $mFrontWheel\nmRearWheel: $mRearWheel\nSquaredWheels: $mSquareWheels"
     }
 
+    fun setPosition(x: Double, y: Double) {
+        mLeftBottomPosition = Vertex(x, y)
+    }
+
+    fun setSide(side: Int) {
+        mSide = side
+    }
+
+    fun turnLeft(): String {
+        return if (mSide == -1) {
+            "left"
+        } else {
+            "right"
+        }
+    }
+
+    fun turnRight(): String {
+        return if (mSide == -1) {
+            "right"
+        } else {
+            "left"
+        }
+    }
+
+    fun setAngle(angle: Double) {
+        mAngle = angle
+    }
+
+    fun getAngle() = mAngle
+    fun isInAir(segmentsHolder: MapSegmentsHolder): Boolean {
+        mFrontWheel?.let {
+            if (!checkWheelInAir(it, segmentsHolder))
+                return false
+        }
+
+        mRearWheel?.let{
+            if(!checkWheelInAir(it, segmentsHolder))
+                return false
+        }
+        return true
+    }
+
+    private fun checkWheelInAir(wheel:Wheel, segmentsHolder: MapSegmentsHolder): Boolean{
+//        segmentsHolder.mSegments.forEach{
+//
+//        }
+        return false
+    }
+
+    fun setRearWheelInfo(jsonArray: JSONArray) {
+        mRearWheel?.updatePosition(jsonArray.getDouble(0), jsonArray.getDouble(1), jsonArray.getDouble(2))
+    }
+
+    fun setFrontWheelInfo(jsonArray: JSONArray) {
+        mFrontWheel?.updatePosition(jsonArray.getDouble(0), jsonArray.getDouble(1), jsonArray.getDouble(2))
+    }
 
 
 }

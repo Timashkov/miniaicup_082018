@@ -14,6 +14,7 @@ class Wheel(private val wheelType: WheelType, val jsonObject: JSONObject) {
     private var mDampPosition: Vertex
     private var mDampStiffness: Float = jsonObject.getFloat("${wheelType.prefix}damp_stiffness")
     private var mDampLength = jsonObject.getFloat("${wheelType.prefix}damp_length")
+    private var mAngle: Double = 0.0
 
     init {
         var vertArr = jsonObject.getJSONArray("${wheelType.prefix}position")
@@ -31,6 +32,11 @@ class Wheel(private val wheelType: WheelType, val jsonObject: JSONObject) {
                 "mJoint: $mJoint\nmDampDamping: $mDampDamping\n" +
                 "mDampPostition: $mDampPosition\nmDampStiffness: $mDampStiffness\n" +
                 "mDampLength: $mDampLength"
+    }
+
+    fun updatePosition(x: Double, y: Double, angle: Double){
+        mPosition = Vertex(x,y)
+        mAngle = angle
     }
 
     enum class WheelType(val id: Int, val prefix: String) {

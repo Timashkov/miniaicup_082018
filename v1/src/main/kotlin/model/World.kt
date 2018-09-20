@@ -15,16 +15,28 @@ class World(private val json: JSONObject) {
         return "WORLD: $json\nCar: $mCar"
     }
 
-    fun updateCarInfo(myCar: JSONArray?) {
-
+    fun updateCarInfo(myCarInfo: JSONArray) {
+//[[300,300],0,1,[329,295,0],[422,295,0]]
+        mCar.setPosition(myCarInfo.getJSONArray(0).getDouble(0), myCarInfo.getJSONArray(0).getDouble(1))
+        mCar.setSide(myCarInfo.getInt(2))
+        mCar.setAngle(myCarInfo.getDouble(1))
+        mCar.setRearWheelInfo(myCarInfo.getJSONArray(3))
+        mCar.setFrontWheelInfo(myCarInfo.getJSONArray(4))
     }
 
     fun updateDeadlinePosition(dp: Double) {
         mDeadLine.updatePosition(dp)
     }
 
-    fun updateEnemyInfo(enemyInfo: JSONArray?) {
-
+    fun updateEnemyInfo(enemyInfo: JSONArray) {
+        mEnemyCar.setPosition(enemyInfo.getJSONArray(0).getDouble(0), enemyInfo.getJSONArray(0).getDouble(1))
+        mEnemyCar.setSide(enemyInfo.getInt(2))
+        mEnemyCar.setAngle(enemyInfo.getDouble(1))
+        mEnemyCar.setRearWheelInfo(enemyInfo.getJSONArray(3))
+        mEnemyCar.setFrontWheelInfo(enemyInfo.getJSONArray(4))
     }
+
+    fun getCar(): Car = mCar
+
 
 }

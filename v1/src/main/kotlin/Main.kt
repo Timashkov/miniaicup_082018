@@ -29,6 +29,7 @@ fun main(args: Array<String>) {
             "tick"->{
                 val move = mProcessor?.onTick(lineData.getJSONObject("params"))
                 println(move)
+                Logger().writeLog(move.toString())
             }
         }
     }
